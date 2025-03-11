@@ -3,7 +3,7 @@
 .resume-preview {
   font-family: 'Inter', sans-serif;
   line-height: 1.4;
-  @apply bg-[#1A1F2C] text-gray-100 shadow-lg;
+  @apply bg-[#2A3042] text-gray-100 shadow-lg;
 }
 
 .resume-preview h1 {
@@ -19,7 +19,7 @@
   text-transform: uppercase;
   margin-top: 16px;
   margin-bottom: 8px;
-  border-bottom: 1px solid #4A5568;
+  border-bottom: 1px solid #5A6987;
   padding-bottom: 2px;
   @apply text-gray-200;
 }

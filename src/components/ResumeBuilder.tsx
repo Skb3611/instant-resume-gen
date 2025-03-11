@@ -25,7 +25,7 @@ const ResumeBuilder: React.FC = () => {
 
   if (isMobile) {
     return (
-      <div className="min-h-screen bg-[#141821] p-4">
+      <div className="min-h-screen bg-[#222A3A] p-4">
         <CardHeader className="text-center px-4 py-6 space-y-2">
           <CardTitle className="text-3xl font-display font-bold text-gray-100">
             Resume Builder
@@ -36,11 +36,11 @@ const ResumeBuilder: React.FC = () => {
         </CardHeader>
         
         <Tabs defaultValue="form" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-4 bg-[#1A1F2C]">
-            <TabsTrigger value="form" className="transition-all-200 data-[state=active]:bg-[#222632] data-[state=active]:text-gray-100">
+          <TabsList className="grid w-full grid-cols-2 mb-4 bg-[#2A3042]">
+            <TabsTrigger value="form" className="transition-all-200 data-[state=active]:bg-[#303952] data-[state=active]:text-gray-100">
               Editor
             </TabsTrigger>
-            <TabsTrigger value="preview" className="transition-all-200 data-[state=active]:bg-[#222632] data-[state=active]:text-gray-100">
+            <TabsTrigger value="preview" className="transition-all-200 data-[state=active]:bg-[#303952] data-[state=active]:text-gray-100">
               Preview
             </TabsTrigger>
           </TabsList>
@@ -61,8 +61,8 @@ const ResumeBuilder: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#141821] flex flex-col">
-      <div className="text-center px-4 py-6 border-b border-gray-800 bg-[#1A1F2C] shadow-sm">
+    <div className="min-h-screen bg-[#222A3A] flex flex-col">
+      <div className="text-center px-4 py-6 border-b border-gray-700 bg-[#2A3042] shadow-sm">
         <h1 className="text-3xl font-display font-bold text-gray-100">
           Resume Builder
         </h1>
@@ -72,14 +72,14 @@ const ResumeBuilder: React.FC = () => {
       </div>
       
       <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden">
-        <div className="border-r border-gray-800 bg-[#1A1F2C] overflow-y-auto">
+        <div className="border-r border-gray-700 bg-[#2A3042] overflow-y-auto">
           <ResumeForm
             resumeData={resumeData}
             updateResumeData={updateResumeData}
           />
         </div>
         
-        <div className="bg-[#141821] p-6 overflow-y-auto">
+        <div className="bg-[#222A3A] p-6 overflow-y-auto">
           <ResumePreview resumeData={resumeData} />
         </div>
       </div>

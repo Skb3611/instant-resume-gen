@@ -4,7 +4,7 @@ import ResumeBuilder from '@/components/ResumeBuilder';
 
 const Index: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-100">
       <title>Professional Resume Builder</title>
       <meta name="description" content="Create a professional resume with our easy-to-use builder" />
       <ResumeBuilder />

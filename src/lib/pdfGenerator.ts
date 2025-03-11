@@ -1,45 +1,44 @@
 
 import { ResumeData } from './resumeTypes';
-import html2pdf from 'html2pdf.js';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 /**
  * Generates a PDF from the resume data and downloads it
  * @param resumeData The resume data
  * @param elementId The ID of the element to convert to PDF
  */
-export const generatePDF = (resumeData: ResumeData, elementId: string): void => {
-  const element = document.getElementById(elementId);
-  
-  if (!element) {
-    console.error(`Element with ID "${elementId}" not found.`);
-    return;
+export const handleDownloadPDF = async (printRef: any) => {
+  console.log(printRef);
+  try {
+    if (printRef.current) {
+      console.log(printRef.current);
+      const canvas = await html2canvas(printRef.current, {
+        scale: 2,
+      });
+      const imgData = canvas.toDataURL("image/png");
+
+      // Default PDF page width in mm
+      const pdfWidth = 210; // A4 width in mm
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width; // Scale height proportionally to the width
+
+      // Create jsPDF instance with default width and dynamic height
+      const pdf = new jsPDF({
+        orientation: pdfHeight > pdfWidth ? "portrait" : "landscape",
+        unit: "mm",
+        format: [pdfWidth, pdfHeight], // Fixed width, dynamic height
+      });
+
+      // Add the image to the PDF
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight,"",'NONE');
+
+      // Generate a unique file name using timestamp
+      const uniqueName = `resume_${new Date().getTime()}.pdf`;
+      pdf.save(uniqueName);
+    }
+  } catch (error) {
+    console.error("Error during PDF download:", error);
   }
-
-  const fileName = `${resumeData.personalInfo.name.replace(/\s+/g, '_')}_Resume.pdf`;
-  
-  const options = {
-    margin: [10, 10, 10, 10],
-    filename: fileName,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { 
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      letterRendering: true 
-    },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
-
-  html2pdf()
-    .set(options)
-    .from(element)
-    .save()
-    .then(() => {
-      console.log('PDF generated successfully');
-    })
-    .catch((error) => {
-      console.error('Error generating PDF:', error);
-    });
 };
 
 /**

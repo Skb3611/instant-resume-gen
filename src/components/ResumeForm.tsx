@@ -7,9 +7,10 @@ import EducationForm from "./EducationForm";
 import ProjectsForm from "./ProjectsForm";
 import SkillsForm from "./SkillsForm";
 import { Button } from "@/components/ui/button";
+import { Download, Save } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
-import { handleDownloadPDF, saveResumeData } from "@/lib/pdfGenerator";
+import { generatePDF, saveResumeData } from "@/lib/pdfGenerator";
 import { useToast } from "@/hooks/use-toast";
 
 interface ResumeFormProps {
@@ -61,7 +62,17 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     });
   };
 
+  const handleSave = () => {
+    saveResumeData(resumeData);
+    toast({
+      title: "Resume Saved",
+      description: "Your resume data has been saved successfully.",
+    });
+  };
 
+  const handleDownload = () => {
+    generatePDF(resumeData, "resume-preview-content");
+  };
 
   return (
     <div className="resume-form h-full flex flex-col overflow-hidden">
@@ -124,7 +135,23 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         </Card>
       </div>
       
-     
+      <div className="sticky bottom-0 p-4 bg-white border-t border-gray-100 flex space-x-4 shadow-sm z-10">
+        <Button
+          variant="outline"
+          className="flex-1 space-x-2 transition-all-200"
+          onClick={handleSave}
+        >
+          <Save className="h-4 w-4" />
+          <span>Save</span>
+        </Button>
+        <Button
+          className="flex-1 space-x-2 transition-all-200"
+          onClick={handleDownload}
+        >
+          <Download className="h-4 w-4" />
+          <span>Download PDF</span>
+        </Button>
+      </div>
     </div>
   );
 };

@@ -1,17 +1,16 @@
 
-import React, { forwardRef } from "react";
+import React from "react";
 import { ResumeData } from "@/lib/resumeTypes";
 
 interface ResumePreviewProps {
   resumeData: ResumeData;
 }
 
-const ResumePreview = forwardRef(({ resumeData }: ResumePreviewProps, ref: React.Ref<HTMLDivElement>) => {
+const ResumePreview: React.FC<ResumePreviewProps> = ({ resumeData }) => {
   const { personalInfo, workExperiences, education, projects, skills } = resumeData;
 
   return (
     <div
-      ref={ref}
       id="resume-preview-content"
       className="resume-preview bg-white shadow-sm rounded-lg overflow-hidden min-h-full flex flex-col max-w-full relative animate-fade-in"
     >
@@ -199,6 +198,6 @@ const ResumePreview = forwardRef(({ resumeData }: ResumePreviewProps, ref: React
       </div>
     </div>
   );
-});
+};
 
 export default ResumePreview;

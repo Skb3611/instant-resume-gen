@@ -1,105 +1,94 @@
 
 import React from "react";
 import { ResumeData } from "@/lib/resumeTypes";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Globe,
-  Briefcase,
-  GraduationCap,
-  Folder,
-  Award,
-} from "lucide-react";
 
 interface ResumePreviewProps {
   resumeData: ResumeData;
 }
 
 const ResumePreview: React.FC<ResumePreviewProps> = ({ resumeData }) => {
-  const { personalInfo, workExperiences, education, projects, skills } =
-    resumeData;
+  const { personalInfo, workExperiences, education, projects, skills } = resumeData;
 
   return (
     <div
       id="resume-preview-content"
       className="resume-preview bg-white shadow-sm rounded-lg overflow-hidden min-h-full flex flex-col max-w-full relative animate-fade-in"
     >
-      <div className="flex flex-col p-8 pb-6 border-b">
-        <h1 className="text-3xl font-bold text-gray-900 mb-1 animate-slide-up">
+      {/* Header with name and contact details */}
+      <div className="flex flex-col p-6 pb-2 border-b text-center">
+        <h1 className="text-2xl font-bold text-gray-900 mb-1">
           {personalInfo.name || "Your Name"}
         </h1>
-
-        <div className="flex flex-wrap gap-y-2 gap-x-6 mt-4 text-sm text-gray-600">
+        
+        <div className="text-sm text-blue-600 mt-1 mb-2">
+          {personalInfo.address && (
+            <span>{personalInfo.address}</span>
+          )}
+          {personalInfo.email && personalInfo.address && (
+            <span> • </span>
+          )}
           {personalInfo.email && (
-            <div className="flex items-center space-x-2 animate-slide-up">
-              <Mail className="h-4 w-4 text-gray-400" />
-              <span>{personalInfo.email}</span>
-            </div>
+            <span>{personalInfo.email}</span>
+          )}
+          {personalInfo.phone && (personalInfo.email || personalInfo.address) && (
+            <span> • </span>
           )}
           {personalInfo.phone && (
-            <div className="flex items-center space-x-2 animate-slide-up">
-              <Phone className="h-4 w-4 text-gray-400" />
-              <span>{personalInfo.phone}</span>
-            </div>
+            <span>{personalInfo.phone}</span>
           )}
-          {personalInfo.address && (
-            <div className="flex items-center space-x-2 animate-slide-up">
-              <MapPin className="h-4 w-4 text-gray-400" />
-              <span>{personalInfo.address}</span>
-            </div>
+          {personalInfo.website && (personalInfo.phone || personalInfo.email || personalInfo.address) && (
+            <span> • </span>
           )}
           {personalInfo.website && (
-            <div className="flex items-center space-x-2 animate-slide-up">
-              <Globe className="h-4 w-4 text-gray-400" />
-              <span>{personalInfo.website}</span>
-            </div>
+            <span>{personalInfo.website}</span>
           )}
         </div>
       </div>
 
-      <div className="p-8 flex-1 overflow-y-auto">
+      <div className="p-6 flex-1 overflow-y-auto">
+        {/* Work Experience Section */}
         {workExperiences.length > 0 && (
-          <section className="mb-8 animate-slide-up">
-            <div className="flex items-center space-x-2 mb-4">
-              <Briefcase className="h-5 w-5 text-gray-700" />
-              <h2 className="text-xl font-semibold text-gray-800">
-                Work Experience
-              </h2>
-            </div>
-            <div className="space-y-6">
+          <section className="mb-6">
+            <h2 className="text-lg font-bold text-gray-900 border-b border-gray-300 pb-1 mb-3 uppercase">
+              Professional Experience
+            </h2>
+            <div className="space-y-4">
               {workExperiences.map((exp) => (
                 <div key={exp.id} className="animate-fade-in">
                   <div className="flex justify-between mb-1">
-                    <h3 className="font-medium text-gray-900">{exp.role}</h3>
-                    <span className="text-sm text-gray-500">
-                      {exp.startDate}
-                      {exp.current
-                        ? " - Present"
-                        : exp.endDate
-                        ? ` - ${exp.endDate}`
-                        : ""}
-                    </span>
+                    <div>
+                      <h3 className="font-bold text-gray-900">{exp.company}</h3>
+                      <div className="text-gray-800 italic">{exp.role}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-gray-900">{exp.current ? "Present" : exp.endDate}</div>
+                      <div className="text-gray-800">
+                        {exp.startDate && exp.startDate}
+                        {exp.startDate && (exp.current || exp.endDate) ? "-" : ""}
+                        {exp.current ? "Present" : exp.endDate}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-gray-700 mb-2">{exp.company}</div>
+                  
                   {exp.responsibilities && (
                     <div className="mt-2">
-                      <div className="text-sm text-gray-900 font-medium mb-1">
-                        Responsibilities:
-                      </div>
-                      <p className="text-sm text-gray-600 whitespace-pre-line">
-                        {exp.responsibilities}
-                      </p>
+                      <h4 className="font-medium mb-1">Responsibilities</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        {exp.responsibilities.split('\n').map((item, idx) => (
+                          <li key={idx}>{item.trim()}</li>
+                        ))}
+                      </ul>
                     </div>
                   )}
+                  
                   {exp.achievements && (
                     <div className="mt-2">
-                      <div className="text-sm text-gray-900 font-medium mb-1">
-                        Achievements:
-                      </div>
-                      <p className="text-sm text-gray-600 whitespace-pre-line">
-                        {exp.achievements}
-                      </p>
+                      <h4 className="font-medium mb-1">Achievements</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        {exp.achievements.split('\n').map((item, idx) => (
+                          <li key={idx}>{item.trim()}</li>
+                        ))}
+                      </ul>
                     </div>
                   )}
                 </div>
@@ -108,67 +97,28 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ resumeData }) => {
           </section>
         )}
 
+        {/* Education Section */}
         {education.length > 0 && (
-          <section className="mb-8 animate-slide-up">
-            <div className="flex items-center space-x-2 mb-4">
-              <GraduationCap className="h-5 w-5 text-gray-700" />
-              <h2 className="text-xl font-semibold text-gray-800">Education</h2>
-            </div>
-            <div className="space-y-6">
+          <section className="mb-6">
+            <h2 className="text-lg font-bold text-gray-900 border-b border-gray-300 pb-1 mb-3 uppercase">
+              Education
+            </h2>
+            <div className="space-y-4">
               {education.map((edu) => (
                 <div key={edu.id} className="animate-fade-in">
                   <div className="flex justify-between mb-1">
-                    <h3 className="font-medium text-gray-900">
-                      {edu.institution}
-                    </h3>
-                    <span className="text-sm text-gray-500">
-                      {edu.graduationYear}
-                    </span>
+                    <div>
+                      <h3 className="font-bold text-gray-900">{edu.institution}</h3>
+                      <div className="text-gray-800 italic">{edu.degree}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-gray-900">{edu.location}</div>
+                      <div className="text-gray-800">{edu.graduationYear}</div>
+                    </div>
                   </div>
-                  <div className="text-gray-700 mb-1">{edu.degree}</div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">{edu.location}</span>
-                    {edu.score && (
-                      <span className="text-gray-600">{edu.score}</span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {projects.length > 0 && (
-          <section className="mb-8 animate-slide-up">
-            <div className="flex items-center space-x-2 mb-4">
-              <Folder className="h-5 w-5 text-gray-700" />
-              <h2 className="text-xl font-semibold text-gray-800">Projects</h2>
-            </div>
-            <div className="space-y-6">
-              {projects.map((project) => (
-                <div key={project.id} className="animate-fade-in">
-                  <div className="flex justify-between mb-1">
-                    <h3 className="font-medium text-gray-900">
-                      {project.name}
-                    </h3>
-                    {project.link && (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-blue-600 hover:underline"
-                      >
-                        View Project
-                      </a>
-                    )}
-                  </div>
-                  <p className="text-sm text-gray-600 whitespace-pre-line">
-                    {project.description}
-                  </p>
-                  {project.technologies && (
-                    <div className="mt-2 text-sm text-gray-500">
-                      <span className="font-medium">Technologies:</span>{" "}
-                      {project.technologies}
+                  {edu.score && (
+                    <div className="text-sm text-gray-700 mt-1">
+                      {edu.score}
                     </div>
                   )}
                 </div>
@@ -177,25 +127,62 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ resumeData }) => {
           </section>
         )}
 
-        {skills.length > 0 && (
-          <section className="animate-slide-up">
-            <div className="flex items-center space-x-2 mb-4">
-              <Award className="h-5 w-5 text-gray-700" />
-              <h2 className="text-xl font-semibold text-gray-800">Skills</h2>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {skills.map((skill) => (
-                <div
-                  key={skill.id}
-                  className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-700 animate-fade-in"
-                >
-                  {skill.name}
+        {/* Projects Section */}
+        {projects.length > 0 && (
+          <section className="mb-6">
+            <h2 className="text-lg font-bold text-gray-900 border-b border-gray-300 pb-1 mb-3 uppercase">
+              Projects
+            </h2>
+            <div className="space-y-4">
+              {projects.map((project) => (
+                <div key={project.id} className="animate-fade-in">
+                  <h3 className="font-bold text-gray-900">{project.name}</h3>
+                  <p className="text-sm text-gray-700 whitespace-pre-line mt-1">
+                    {project.description}
+                  </p>
+                  {project.technologies && (
+                    <div className="mt-1 text-sm text-gray-700">
+                      <span className="font-medium">Tech: </span>
+                      {project.technologies}
+                    </div>
+                  )}
+                  {project.link && (
+                    <div className="mt-1 text-sm text-blue-600">
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                        {project.link}
+                      </a>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           </section>
         )}
 
+        {/* Skills Section */}
+        {skills.length > 0 && (
+          <section>
+            <h2 className="text-lg font-bold text-gray-900 border-b border-gray-300 pb-1 mb-3 uppercase">
+              Skills
+            </h2>
+            <div className="grid grid-cols-1 gap-y-3">
+              {/* Group skills by category */}
+              <div className="grid grid-cols-6 gap-2">
+                <div className="col-span-1 font-medium text-gray-800">Languages:</div>
+                <div className="col-span-5 text-gray-700">
+                  {skills.filter(s => s.name).map((skill, idx, arr) => (
+                    <React.Fragment key={skill.id}>
+                      <span>{skill.name}</span>
+                      {idx < arr.length - 1 && <span>, </span>}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Empty state message */}
         {!personalInfo.name &&
           workExperiences.length === 0 &&
           education.length === 0 &&

@@ -1,2 +1,67 @@
 
-/* Empty file to override default styles */
+/* Resume Preview Styles */
+.resume-preview {
+  font-family: 'Times New Roman', Times, serif;
+  line-height: 1.4;
+}
+
+.resume-preview h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.resume-preview h2 {
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 2px;
+}
+
+.resume-preview h3 {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.resume-preview p {
+  margin: 4px 0;
+}
+
+.resume-preview ul {
+  margin: 6px 0;
+  padding-left: 20px;
+}
+
+.resume-preview li {
+  margin-bottom: 4px;
+}
+
+/* Print styles for better PDF generation */
+@media print {
+  .resume-preview {
+    padding: 0;
+    margin: 0;
+    background: white;
+    box-shadow: none;
+  }
+  
+  .resume-preview h1 {
+    font-size: 18pt;
+  }
+  
+  .resume-preview h2 {
+    font-size: 14pt;
+  }
+  
+  .resume-preview h3 {
+    font-size: 12pt;
+  }
+  
+  .resume-preview p, .resume-preview li {
+    font-size: 10pt;
+  }
+}

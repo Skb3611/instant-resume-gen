@@ -3,6 +3,13 @@
 Follow the given steps to setup the project
 
 1. Clone the repo.
+    ```bash
+    git clone https://github.com/Skb3611/instant-resume-gen.git
+    ```
+2. Navigate to the folder
+    ```bash
+    cd .\instant-resume-gen\
+    ```    
 
 2. Install the Dependencies:
 

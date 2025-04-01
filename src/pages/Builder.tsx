@@ -2,7 +2,7 @@
 import React from 'react';
 import ResumeBuilder from '@/components/ResumeBuilder';
 
-const Index: React.FC = () => {
+const Builder: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <title>Professional Resume Builder</title>
@@ -12,4 +12,4 @@ const Index: React.FC = () => {
   );
 };
 
-export default Index;
+export default Builder;

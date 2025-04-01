@@ -188,7 +188,7 @@ const ResumePreview = forwardRef(({ resumeData }: ResumePreviewProps, ref: React
           workExperiences.length === 0 &&
           education.length === 0 &&
           projects.length === 0 &&
-          skills.length === 0 && (
+        skills.length === 0 && (
             <div className="h-full flex flex-col items-center justify-center text-gray-400">
               <p className="mb-2 text-lg">Start filling out your resume</p>
               <p className="text-sm">

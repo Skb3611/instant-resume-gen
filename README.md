@@ -11,6 +11,9 @@ Follow the given steps to setup the project
     ```
 
 3. copy .env.example to .env
+    ```bash
+    cp .env.example .env
+    ```
 4. Start the app
     ```bash
     npm run dev
